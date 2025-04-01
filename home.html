@@ -24,11 +24,8 @@
     <script>
         const socket = io('https://penguin-ideal-raptor.ngrok-free.app', 
         {
-            cors: {origin: 'https://egorocku.github.io/html-page/home.html'}
-        },
-            extraHeaders: {
-                "ngrok-skip-browser-warning": "true"
-            }
+            cors: {origin: 'https://egorocku.github.io/html-page/home.html'},
+            extraHeaders: {"ngrok-skip-browser-warning": "true"}
         )
 
         socket.on('connect', () => {
