@@ -61,6 +61,7 @@
 
         function clicked(){
             fetch('https://penguin-ideal-raptor.ngrok-free.app/click', {headers: {'ngrok-skip-browser-warning': 'true'}})
+            .then(response => response.json())
             .then(data=>{
                 alert(data.message)
             })
