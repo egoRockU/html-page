@@ -25,7 +25,11 @@
         const socket = io('https://penguin-ideal-raptor.ngrok-free.app', 
         {
             cors: {origin: 'https://egorocku.github.io/html-page/home.html'}
-        })
+        },
+            extraHeaders: {
+                "ngrok-skip-browser-warning": "true"
+            }
+        )
 
         socket.on('connect', () => {
             console.log('connected to the server')
@@ -58,7 +62,7 @@
         }
 
         function clicked(){
-            fetch('http://localhost:5000/click')
+            fetch('https://penguin-ideal-raptor.ngrok-free.app/click', {headers: {'ngrok-skip-browser-warning': 'true'}})
             .then(data=>{
                 console.log("Success:", data)
             })
