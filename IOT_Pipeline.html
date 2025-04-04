@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Pipeline</title>
+</head>
+<body>
+    <div>
+        <button onclick="sendL1()">1</button>
+        <button onclick="sendL2()">2</button>
+        <button onclick="sendL3()">3</button>
+        <button onclick="sendL4()">4</button>
+        <button onclick="sendL5()">5</button>
+    </div>
+    <div style="display: flex; flex-direction: row;">
+        <h4>Water State:  </h4>
+        <p id="waterState"></p>
+    </div>
+    <div>
+        <input type="text" id="textInput">
+        <button onclick="sendText()">Send</button>
+    </div>
+
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+    <script>
+        
+        const socket = io('https://sloth-meet-crayfish.ngrok-free.app',
+            {
+                cors: {origin: 'https://egorocku.github.io/html-page/home.html'},
+                extraHeaders: {"ngrok-skip-browser-warning": "true"}
+            }
+        )   
+
+
+        socket.on('connect', () => {
+            console.log('connected to the server')
+        })
+
+        function sendL1(){
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/led', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({led: "l1"})
+            })
+        }
+
+        function sendL2(){
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/led', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({led: "l2"})
+            })
+        }
+
+        function sendL3(){
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/led', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({led: "l3"})
+            })
+        }
+        
+        function sendL4(){
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/led', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({led: "l4"})
+            })
+        }
+
+        function sendL5(){
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/led', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({led: "l5"})
+            })
+        }
+
+        socket.on('water_status', (data)=>{
+            let status = Number(data.split(': ')[1])
+            if (status == 1){
+                document.getElementById("waterState").innerText = "Has Water"
+            } else {
+                document.getElementById("waterState").innerText = "No Water"
+            }
+        })
+
+        function sendText() {
+            const inputElement = document.getElementById('textInput')
+            const value = String(inputElement.value.trim())
+
+            fetch('https://sloth-meet-crayfish.ngrok-free.app/text', {
+                method: "POST",
+                headers: {'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({text: value})
+            })
+        }
+
+    </script>
+</body>
+</html>
